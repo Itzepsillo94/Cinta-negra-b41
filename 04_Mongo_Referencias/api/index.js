@@ -10,15 +10,15 @@ server.get('/', (req,res)=> {
     res.json({message: 'Hello World'});
 });
 
-//Products
+//Product
 //--------------------------------------------------------------------------
 //--------------------------------------------------------------------------
-const Products = require('../models/Products');
+const Product = require('../models/Product');
 
 //CREATE
 server.post('/api/products',(req,res)=>{
     const { body } = req;
-    const newProduct = new Products(body);
+    const newProduct = new Product(body);
     
     newProduct.save()
         .then(dbRes => res.status(201).json(dbRes))
@@ -27,14 +27,14 @@ server.post('/api/products',(req,res)=>{
 
 //READ (ALL)
 server.get('/api/products',(req,res)=>{
-    Products.find()
+    Product.find()
         .then(products => res.status(200).json(products))
         .catch(err => res.status(404).json(err));
     
 })
 //READ (ONE)
 server.get('/api/products/:id',(req,res)=>{
-    Products.findById(req.params.id)
+    Product.findById(req.params.id)
         .then(products => {
             if(!products) res.status(404).json({message: 'product not found'})
             res.status(200).json(products)
@@ -44,19 +44,77 @@ server.get('/api/products/:id',(req,res)=>{
 
 //UPDATE
 server.patch('/api/products/:id',(req,res)=>{
-    Products.findById(req.params.id,req.body, {new : true})
+    Product.findById(req.params.id,req.body, {new : true})
         .then(updateProduct => res.status(200).json(updateProduct))
         .catch(err => res.status(404).json(err));
 })
 
 //DELETE
 server.delete('/api/products/:id',(req,res)=>{
-    Products.findByIdAndDelete(req.params.id)
+    Product.findByIdAndDelete(req.params.id)
         .then(updateProduct => res.status(200).json(updateProduct))
         .catch(err => res.status(404).json(err));
 })
+
+//Ticket
 //--------------------------------------------------------------------------
 //--------------------------------------------------------------------------
+
+const Ticket = require('../models/Ticket');
+
+//CREATE
+server.post('/api/tickets',(req,res)=>{
+    const { body } = req;
+    const newTicket = new Ticket(body);
+    
+    newTicket.save()
+        .then(dbRes => res.status(201).json(dbRes))
+        .catch(err => res.status(404).json(err))
+})
+
+//    Ticket.find().populate('products')
+//READ (ALL)
+server.get('/api/tickets',(req,res)=>{
+    Ticket.find().populate('products')
+        .then(tickets => res.status(200).json(tickets))
+        .catch(err => res.status(404).json(err));
+    
+})
+//READ (ONE)
+server.get('/api/tickets/:id',(req,res)=>{
+    Ticket.findById(req.params.id)
+        .populate('products')
+        .then(tickets => {
+            if(!tickets) res.status(404).json({message: 'product not found'})
+            res.status(200).json(tickets)
+        })
+        .catch(err => res.status(404).json(err));
+})
+
+//UPDATE
+server.patch('/api/tickets/:id',(req,res)=>{
+    Ticket.findById(req.params.id,req.body, {new : true})
+        .then(updateTicket => res.status(200).json(updateTicket))
+        .catch(err => res.status(404).json(err));
+})
+
+//DELETE
+server.delete('/api/tickets/:id',(req,res)=>{
+    Ticket.findByIdAndDelete(req.params.id)
+        .then(updateTicket => res.status(200).json(updateTicket))
+        .catch(err => res.status(404).json(err));
+})
+
+
+
+//--------------------------------------------------------------------------
+
+
 
 
 server.listen(PORT, () => console.log(`Listening on ${PORT}`))
+
+
+//--------------------------------------------------------------------------
+
+//--------------------------------------------------------------------------
