@@ -10,6 +10,18 @@ server.get('/', (req,res)=> {
     res.json({message: 'Hello World'});
 });
 
+const ProductRoutes = require('../routes/ProductRoutes');
+server.use(ProductRoutes);
+
+const TicketRoutes = require('../routes/TicketRoutes');
+server.use(TicketRoutes);
+
+
+
+server.listen(PORT, () => console.log(`Listening on ${PORT}`))
+
+
+/*
 //Product
 //--------------------------------------------------------------------------
 //--------------------------------------------------------------------------
@@ -55,7 +67,8 @@ server.delete('/api/products/:id',(req,res)=>{
         .then(updateProduct => res.status(200).json(updateProduct))
         .catch(err => res.status(404).json(err));
 })
-
+*/
+/*
 //Ticket
 //--------------------------------------------------------------------------
 //--------------------------------------------------------------------------
@@ -104,17 +117,5 @@ server.delete('/api/tickets/:id',(req,res)=>{
         .then(updateTicket => res.status(200).json(updateTicket))
         .catch(err => res.status(404).json(err));
 })
+*/
 
-
-
-//--------------------------------------------------------------------------
-
-
-
-
-server.listen(PORT, () => console.log(`Listening on ${PORT}`))
-
-
-//--------------------------------------------------------------------------
-
-//--------------------------------------------------------------------------
