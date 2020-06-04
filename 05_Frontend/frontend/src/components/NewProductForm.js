@@ -31,12 +31,14 @@ const NewProduct = () => {
     return (
         <React.Fragment>
             <article>
+            <div className="row">
             <div class="col-md-4 mx-auto">
                 <div style={{
                     backgroundColor: "#5672f0",
                     padding: "1em",
                     width: "300px",
                 }}>
+                    <div class="card mt-4 text-center">
                     <div class="card">
                         <div class="card-header">
                             Create Document
@@ -55,6 +57,8 @@ const NewProduct = () => {
                         </form>
                     </div>
                 </div>
+            </div>
+            </div>
             </div>
         </div>
         </article>
