@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Product from './Product';
-
-
+import NewProductForm from './NewProductForm';
 const axios = require('axios');
 
 const ProductsList = () => {
@@ -26,6 +25,9 @@ const ProductsList = () => {
             price={product.price}
         />)}
         </article>
+        <NewProductForm 
+            setProducts ={setProducts}
+        />
         </React.Fragment>
     )
 }
