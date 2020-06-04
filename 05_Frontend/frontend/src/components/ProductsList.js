@@ -18,12 +18,14 @@ const ProductsList = () => {
     return (
         <React.Fragment>
         <h2>Products</h2>
-    { products.map(product => 
+        <article>
+        { products.map(product => 
         <Product 
             key={product._id} 
             name={product.name} 
             price={product.price}
         />)}
+        </article>
         </React.Fragment>
     )
 }
